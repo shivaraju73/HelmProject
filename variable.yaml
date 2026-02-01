@@ -1,0 +1,26 @@
+wordpress:
+  image: wordpress:latest
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+  dbHost: mysql:3306
+  dbUser: wordpress
+  dbPassword: wordpresspass
+  dbName: wordpress
+  pvcSize: 10Gi
+  ingress:
+    enabled: true
+    hostname: kubevpro73.sh-info.online
+    class: nginx
+mysql:
+  image: mysql:5.7
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 3306
+  rootPassword: rootpass
+  user: wpuser
+  password: wppass
+  dbName: wordpress
+  pvcSize: 10Gi

@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "wordpress-stack.fullname" . }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.wordpress.ingress.class }}
+spec:
+  rules:
+    - host: {{ .Values.wordpress.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "wordpress-stack.fullname" . }}-wordpress
+                port:
+                  number: {{ .Values.wordpress.service.port }}
